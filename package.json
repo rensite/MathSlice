@@ -1,0 +1,23 @@
+{
+  "name": "sectionlab",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 127.0.0.1",
+    "build": "vite build --base ./",
+    "deploy": "python3 scripts/deploy.py",
+    "release": "npm run build && python3 scripts/release.py",
+    "test:release": "python3 -m unittest discover -s scripts -p 'test_*.py'",
+    "preview": "vite preview --host 127.0.0.1",
+    "test": "node --test tests/*.test.js",
+    "test:e2e": "playwright test"
+  },
+  "dependencies": {
+    "three": "^0.186.1"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.64.1",
+    "vite": "^8.3.5"
+  }
+}

@@ -1,0 +1,28 @@
+# Dependencies and generated delivery artifacts
+node_modules/
+dist/
+releases/
+
+# Test reports and caches
+test-results/
+playwright-report/
+blob-report/
+coverage/
+.vite/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# Local environment and credentials
+.env
+.env.*
+.aws/
+.ssh/
+*.pem
+*.key
+
+# Local editor and operating-system files
+.idea/
+.vscode/
+.DS_Store
+*.log

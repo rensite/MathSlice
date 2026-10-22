@@ -1,0 +1,40 @@
+name: Verify and package
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: npm ci
+      - run: npm test
+      - run: npm run test:release
+      - run: npx playwright install --with-deps chromium
+      - run: npm run test:e2e
+      - run: npm run release
+      - uses: actions/upload-artifact@v4
+        with:
+          name: sectionlab-release
+          path: |
+            dist/
+            releases/sechenie-mvp.html
+            releases/sectionlab-source.zip
+            releases/SHA256SUMS
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: playwright-failures
+          path: test-results/
+          if-no-files-found: ignore
